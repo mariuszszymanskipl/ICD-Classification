@@ -6,7 +6,11 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.util.IOUtils;
 
-import java.io.*;
+import javax.enterprise.inject.Default;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
@@ -16,6 +20,7 @@ import java.util.List;
 /**
  * @author Mariusz Szymanski
  */
+@Default
 public class ICDClassification {
 
     private List<Category> classification;
@@ -27,7 +32,7 @@ public class ICDClassification {
             + "/download/icd-9plw.5.33.xls";
 
     private static final File XLS_FILE
-            = new File("src/main/resources/icd-9plw.5.33.xls");
+            = new File("icd-9plw.5.33.xls");
 
     ICDClassification() {
         classification = new ArrayList<>();
@@ -37,11 +42,11 @@ public class ICDClassification {
         this.readXlsFile();
     }
 
-    public List<Category> getICDclassification() {
+    List<Category> getICDclassification() {
         return classification;
     }
 
-    public void copyRemoteXlsFile() {
+    void copyRemoteXlsFile() {
         InputStream initialStream = null;
         try {
             initialStream = new URL(REMOTE_ICD9_XLS).openStream();

@@ -24,7 +24,7 @@ public class ICDClassificationTest {
     @Test
     public void shouldCopyRemoteXlsFileToResources() throws Exception {
 //        Given
-        String filePath = "src/main/resources/icd-9plw.5.33.xls";
+        String filePath = "icd-9plw.5.33.xls";
         File file = new File(filePath);
 //        When
         icdClassification.copyRemoteXlsFile();
@@ -34,7 +34,9 @@ public class ICDClassificationTest {
 
     @Test
     public void getICDClassificationReturnNotNullList() throws Exception {
+//        Given & When
         List<Category> classification = icdClassification.getICDclassification();
+//        Then
         assertTrue(classification.size() != 0);
     }
 }
