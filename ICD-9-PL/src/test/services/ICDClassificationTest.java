@@ -1,9 +1,11 @@
 package services;
 
+import domain.Category;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
+import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
@@ -28,5 +30,11 @@ public class ICDClassificationTest {
         icdClassification.copyRemoteXlsFile();
 //        Then
         assertTrue(file.exists());
+    }
+
+    @Test
+    public void getICDClassificationReturnNotNullList() throws Exception {
+        List<Category> classification = icdClassification.getICDclassification();
+        assertTrue(classification.size() != 0);
     }
 }
