@@ -4,7 +4,6 @@ import domain.Category;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.util.IOUtils;
 
 import javax.enterprise.inject.Default;
 import java.io.File;
@@ -47,24 +46,19 @@ public class ICDClassification {
     }
 
     void copyRemoteXlsFile() {
-        InputStream initialStream = null;
-        try {
-            initialStream = new URL(REMOTE_ICD9_XLS).openStream();
+        try(InputStream inputStream = new URL(REMOTE_ICD9_XLS).openStream()) {
             Files.copy(
-                    initialStream,
+                    inputStream,
                     XLS_FILE.toPath(),
                     StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        IOUtils.closeQuietly(initialStream);
     }
 
     private void readXlsFile() {
-        try {
-            InputStream inputStream = new FileInputStream(XLS_FILE);
+        try(InputStream inputStream = new FileInputStream(XLS_FILE)) {
             HSSFWorkbook wb = new HSSFWorkbook(inputStream);
-            inputStream.close();
             HSSFSheet sheet = wb.getSheetAt(0);
             HSSFRow row;
             int rows = sheet.getPhysicalNumberOfRows();
