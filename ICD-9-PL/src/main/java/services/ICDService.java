@@ -30,13 +30,11 @@ public class ICDService {
 
         List<Section> sections = new ArrayList<>();
 
-        for(Category c : distinctElements) {
-            Section section = new Section();
-            section.setCode(c.getChapterNumber());
-            section.setTitle(c.getChapter());
-            section.setSubsections(this.getDistinctSubsections(c.getChapterNumber()));
-            sections.add(section);
-        }
+        distinctElements.forEach((record) -> sections.add(new Section(
+                record.getChapterNumber(),
+                record.getChapter(),
+                this.getDistinctSubsections(record.getChapterNumber()))));
+
         return sections;
     }
 
@@ -48,15 +46,12 @@ public class ICDService {
 
         List<Subsection> subsections = new ArrayList<>();
 
-        for(Category c : distinctElements) {
-            Subsection subsection = new Subsection();
-            subsection.setCode(c.getBlockNumber());
-            subsection.setTitle(c.getBlock());
-            subsections.add(subsection);
-        }
+        distinctElements.forEach((record) -> subsections.add(new Subsection(
+                record.getBlockNumber(),
+                record.getBlock())));
+
         return subsections;
     }
-
 
     private static <T> Predicate<T> distinctByKey(Function<? super T, Object> keyExtractor) {
         Map<Object, Boolean> map = new ConcurrentHashMap<>();

@@ -11,6 +11,12 @@ public class Section {
     private String title;
     private List<Subsection> subsections;
 
+    public Section(String code, String title, List<Subsection> subsections) {
+        this.code = code;
+        this.title = title;
+        this.subsections = subsections;
+    }
+
     public String getCode() {
         return code;
     }
