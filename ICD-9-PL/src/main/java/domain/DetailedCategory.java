@@ -9,6 +9,11 @@ public class DetailedCategory {
     private String description;
     private String notes;
 
+    public DetailedCategory(String code, String description) {
+        this.code = code;
+        this.description = description;
+    }
+
     public String getCode() {
         return code;
     }

@@ -11,9 +11,10 @@ public class Subsection {
     private String title;
     private List<MainCategory> mainCategories;
 
-    public Subsection(String code, String title) {
+    public Subsection(String code, String title, List<MainCategory> mainCategories) {
         this.code = code;
         this.title = title;
+        this.mainCategories = mainCategories;
     }
 
     public String getCode() {

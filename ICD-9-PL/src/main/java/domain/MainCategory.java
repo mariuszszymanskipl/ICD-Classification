@@ -11,6 +11,11 @@ public class MainCategory {
     private String title;
     private List<DetailedCategory> detailedCategories;
 
+    public MainCategory(String code, String title) {
+        this.code = code;
+        this.title = title;
+    }
+
     public String getCode() {
         return code;
     }
