@@ -13,7 +13,6 @@
 </head>
 <body>
 <div class="container">
-
     <div class="panel-group">
         <div class="panel panel-default">
             <div class="panel-heading"><h3>ICD-9 Classification
@@ -21,7 +20,6 @@
             </h3></div>
         </div>
     </div>
-
     <div class="panel-group" id="accordion">
         <c:forEach var="section" items="${classification.sections}">
             <div class="panel panel-default">
@@ -39,12 +37,11 @@
                     <div class="panel-body" id="accordion2">
                         <ul class="list-group">
                             <c:forEach var="subsection" items="${section.subsections}">
-
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <h4 class="panel-title">
                                             <a data-toggle="collapse" data-parent="#accordion2"
-                                               href="#subsection_${subsection.code}">
+                                               href="#subsection_${subsection.hashCode()}">
                                                 <div class="row">
                                                     <div class="col-xs-1"><strong>${subsection.code}</strong></div>
                                                     <div class="col-xs-11">${subsection.title}</div>
@@ -52,14 +49,31 @@
                                             </a>
                                         </h4>
                                     </div>
-                                    <div id="subsection_${subsection.code}" class="panel-collapse collapse">
+                                    <div id="subsection_${subsection.hashCode()}" class="panel-collapse collapse">
                                         <div class="panel-body">
-                                            Main Category
+                                            <ul class="list-group">
+                                                <c:forEach var="mainCategory" items="${subsection.mainCategories}">
+                                                    <li class="list-group-item">
+                                                        <div class="row">
+                                                            <div class="col-xs-1"><strong>${mainCategory.code}</strong>
+                                                            </div>
+                                                            <div class="col-xs-11">${mainCategory.title}</div>
+                                                        </div>
+                                                        <c:forEach var="detailedCategory"
+                                                                   items="${mainCategory.detailedCategories}">
+                                                            <div class="row">
+                                                                <div class="col-xs-1 col-xs-less-1">
+                                                                    <strong>${detailedCategory.code}</strong>
+                                                                </div>
+                                                                <div class="col-xs-10">${detailedCategory.description}</div>
+                                                            </div>
+                                                        </c:forEach>
+                                                    </li>
+                                                </c:forEach>
+                                            </ul>
                                         </div>
                                     </div>
-
                                 </div>
-
                             </c:forEach>
                         </ul>
                     </div>
@@ -67,9 +81,6 @@
             </div>
         </c:forEach>
     </div>
-
-
-
 </div>
 </body>
 </html>
