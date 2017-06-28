@@ -1,7 +1,5 @@
 package domain;
 
-import services.ICDBuilder;
-
 import java.util.List;
 
 /**
@@ -9,13 +7,13 @@ import java.util.List;
  */
 public class Classification {
 
-    private List<Section> classification;
+    private List<Section> sections;
 
-    public Classification() {
-        this.classification = new ICDBuilder().getDistinctSections();
+    public Classification(List<Section> sections) {
+        this.sections = sections;
     }
 
-    public List<Section> getClassification() {
-        return classification;
+    public List<Section> getSections() {
+        return sections;
     }
 }

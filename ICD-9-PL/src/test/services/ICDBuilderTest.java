@@ -1,9 +1,6 @@
 package services;
 
-import domain.DetailedCategory;
-import domain.MainCategory;
-import domain.Section;
-import domain.Subsection;
+import domain.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,6 +19,13 @@ public class ICDBuilderTest {
     public void setUp(){
         icdBuilder = new ICDBuilder();
     }
+
+    @Test
+    public void shouldReturnAllClassification() throws Exception {
+        Classification classification = icdBuilder.getAllClassification();
+        assertTrue(classification.getSections().size() != 0);
+    }
+
     @Test
     public void shouldReturnDistinctSections() throws Exception {
        List<Section> distinctSections =  icdBuilder.getDistinctSections();

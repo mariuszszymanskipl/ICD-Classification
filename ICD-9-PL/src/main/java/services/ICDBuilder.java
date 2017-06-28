@@ -16,9 +16,12 @@ import java.util.stream.Collectors;
  */
 public class ICDBuilder {
 
-    private ICDClient icdClient = new ICDClient();
+    private List<Record> records = new ICDClient().getICDRecords();
 
-    private List<Record> records = icdClient.getICDRecords();
+    public Classification getAllClassification() {
+
+        return new Classification(this.getDistinctSections());
+    }
 
     public List<Section> getDistinctSections() {
 
