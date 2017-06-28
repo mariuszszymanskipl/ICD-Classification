@@ -28,26 +28,32 @@ public class ICDBuilderTest {
 
     @Test
     public void shouldReturnDistinctSections() throws Exception {
-       List<Section> distinctSections =  icdBuilder.getDistinctSections();
+       List<Section> distinctSections
+               = icdBuilder.getAllClassification().getSections();
        assertTrue(distinctSections.size() != 0);
     }
 
     @Test
     public void shouldReturnDistinctSubsections() throws Exception {
-        List<Subsection> distinctSubsections =  icdBuilder.getDistinctSubsections("00");
+        List<Subsection> distinctSubsections
+                = icdBuilder.getAllClassification().getSections().get(0).getSubsections();
         assertTrue(distinctSubsections.size() != 0);
     }
 
     @Test
     public void shouldReturnDistinctMainCategories() throws Exception {
-        List<MainCategory> distinctMainCategories =  icdBuilder.getDistinctMainCategories("00.1");
+        List<MainCategory> distinctMainCategories
+                = icdBuilder.getAllClassification().getSections().get(0)
+                .getSubsections().get(0).getMainCategories();
         assertTrue(distinctMainCategories.size() != 0);
     }
 
     @Test
     public void shouldReturnDistinctDetailedCategories() throws Exception {
         List<DetailedCategory> distinctDetailedCategories
-                = icdBuilder.getDistinctDetailedCategories("00.10");
+                = icdBuilder.getAllClassification().getSections().get(1)
+                .getSubsections().get(0).getMainCategories()
+                .get(0).getDetailedCategories();
         assertTrue(distinctDetailedCategories.size() != 0);
     }
 }

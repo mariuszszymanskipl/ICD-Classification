@@ -64,10 +64,10 @@ public class ICDClient {
                 row = sheet.getRow(r);
                 if (row != null) {
                     Record record = new Record();
-                    record.setChapterNumber(row.getCell(0).toString());
-                    record.setChapter(row.getCell(1).toString());
-                    record.setBlockNumber(row.getCell(2).toString());
-                    record.setBlock(row.getCell(3).toString());
+                    record.setSectionNumber(row.getCell(0).toString());
+                    record.setSection(row.getCell(1).toString());
+                    record.setSubsectionNumber(row.getCell(2).toString());
+                    record.setSubsection(row.getCell(3).toString());
                     record.setMainCategoryNumber(row.getCell(4).toString());
                     record.setMainCategory(row.getCell(5).toString());
                     if (row.getCell(6) != null) {

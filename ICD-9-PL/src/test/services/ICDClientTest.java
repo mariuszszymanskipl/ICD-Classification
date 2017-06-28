@@ -33,10 +33,10 @@ public class ICDClientTest {
     }
 
     @Test
-    public void getICDClassificationReturnNotNullList() throws Exception {
+    public void getICDRecordReturnNotNullList() throws Exception {
 //        Given & When
-        List<Record> classification = icdClient.getICDRecords();
+        List<Record> records = icdClient.getICDRecords();
 //        Then
-        assertTrue(classification.size() != 0);
+        assertTrue(records.size() != 0);
     }
 }

@@ -19,47 +19,46 @@ public class ICDBuilder {
     private List<Record> records = new ICDClient().getICDRecords();
 
     public Classification getAllClassification() {
-
         return new Classification(this.getDistinctSections());
     }
 
-    public List<Section> getDistinctSections() {
+    private List<Section> getDistinctSections() {
 
         List<Record> distinctElements = records.stream()
-                .filter(distinctByKey(Record::getChapter))
+                .filter(distinctByKey(Record::getSection))
                 .collect(Collectors.toList());
 
         List<Section> sections = new ArrayList<>();
 
         distinctElements.forEach((record) -> sections.add(new Section(
-                record.getChapterNumber(),
-                record.getChapter(),
-                this.getDistinctSubsections(record.getChapterNumber()))));
+                record.getSectionNumber(),
+                record.getSection(),
+                this.getDistinctSubsections(record.getSectionNumber()))));
 
         return sections;
     }
 
-    public List<Subsection> getDistinctSubsections(String section) {
+    private List<Subsection> getDistinctSubsections(String section) {
 
         List<Record> distinctElements = records.stream()
-                .filter(e -> Objects.equals(e.getChapterNumber(), section))
-                .filter(distinctByKey(Record::getBlock))
+                .filter(e -> Objects.equals(e.getSectionNumber(), section))
+                .filter(distinctByKey(Record::getSubsection))
                 .collect(Collectors.toList());
 
         List<Subsection> subsections = new ArrayList<>();
 
         distinctElements.forEach((record) -> subsections.add(new Subsection(
-                record.getBlockNumber(),
-                record.getBlock(),
-                this.getDistinctMainCategories(record.getBlockNumber()))));
+                record.getSubsectionNumber(),
+                record.getSubsection(),
+                this.getDistinctMainCategories(record.getSubsectionNumber()))));
 
         return subsections;
     }
 
-    public List<MainCategory> getDistinctMainCategories(String subsectionNumber) {
+    private List<MainCategory> getDistinctMainCategories(String subsectionNumber) {
 
         List<Record> distinctElements = records.stream()
-                .filter(e -> Objects.equals(e.getBlockNumber(), subsectionNumber))
+                .filter(e -> Objects.equals(e.getSubsectionNumber(), subsectionNumber))
                 .filter(distinctByKey(Record::getMainCategory))
                 .collect(Collectors.toList());
 
@@ -73,7 +72,7 @@ public class ICDBuilder {
         return mainCategories;
     }
 
-    public List<DetailedCategory> getDistinctDetailedCategories(String mainCategoryNumber) {
+    private List<DetailedCategory> getDistinctDetailedCategories(String mainCategoryNumber) {
 
         List<Record> distinctElements = records.stream()
                 .filter(e -> Objects.equals(e.getMainCategoryNumber(), mainCategoryNumber))

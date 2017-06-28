@@ -5,45 +5,45 @@ package domain;
  */
 public class Record {
 
-    private String chapterNumber;
-    private String chapter;
-    private String blockNumber;
-    private String block;
+    private String sectionNumber;
+    private String section;
+    private String subsectionNumber;
+    private String subsection;
     private String mainCategoryNumber;
     private String mainCategory;
     private String detailedCategoryNumber;
     private String detailedCategory;
 
-    public String getChapterNumber() {
-        return chapterNumber;
+    public String getSectionNumber() {
+        return sectionNumber;
     }
 
-    public void setChapterNumber(String chapterNumber) {
-        this.chapterNumber = chapterNumber;
+    public void setSectionNumber(String sectionNumber) {
+        this.sectionNumber = sectionNumber;
     }
 
-    public String getChapter() {
-        return chapter;
+    public String getSection() {
+        return section;
     }
 
-    public void setChapter(String chapter) {
-        this.chapter = chapter;
+    public void setSection(String section) {
+        this.section = section;
     }
 
-    public String getBlockNumber() {
-        return blockNumber;
+    public String getSubsectionNumber() {
+        return subsectionNumber;
     }
 
-    public void setBlockNumber(String blockNumber) {
-        this.blockNumber = blockNumber;
+    public void setSubsectionNumber(String subsectionNumber) {
+        this.subsectionNumber = subsectionNumber;
     }
 
-    public String getBlock() {
-        return block;
+    public String getSubsection() {
+        return subsection;
     }
 
-    public void setBlock(String block) {
-        this.block = block;
+    public void setSubsection(String subsection) {
+        this.subsection = subsection;
     }
 
     public String getMainCategoryNumber() {
