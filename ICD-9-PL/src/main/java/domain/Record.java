@@ -3,7 +3,7 @@ package domain;
 /**
  * @author Mariusz Szymanski
  */
-public class Category {
+public class Record {
 
     private String chapterNumber;
     private String chapter;

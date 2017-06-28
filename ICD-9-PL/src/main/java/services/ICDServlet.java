@@ -1,6 +1,6 @@
 package services;
 
-import domain.Category;
+import domain.Record;
 
 import javax.enterprise.inject.Default;
 import javax.inject.Inject;
@@ -19,11 +19,11 @@ import java.util.List;
 public class ICDServlet extends HttpServlet {
 
     @Inject @Default
-    ICDClassification icdClassification;
+    ICDClient icdClient;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        List<Category> classification = icdClassification.getICDclassification();
+        List<Record> classification = icdClient.getICDRecords();
         request.setCharacterEncoding("UTF-8");
         request.setAttribute("classification", classification);
         request.getRequestDispatcher("icd-9.jsp").forward(request, response);

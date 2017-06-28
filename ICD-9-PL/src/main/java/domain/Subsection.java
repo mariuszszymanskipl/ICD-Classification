@@ -21,23 +21,11 @@ public class Subsection {
         return code;
     }
 
-    public void setCode(String code) {
-        this.code = code;
-    }
-
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public List<MainCategory> getMainCategories() {
         return mainCategories;
-    }
-
-    public void setMainCategories(List<MainCategory> mainCategories) {
-        this.mainCategories = mainCategories;
     }
 }

@@ -16,8 +16,8 @@
             <span class="badge">${classification.size()}</span>
         </h3></div>
         <ul class="list-group">
-            <c:forEach var="category" items="${classification}">
-                <li class="list-group-item">${category.mainCategoryNumber} ${category.mainCategory}</li>
+            <c:forEach var="record" items="${classification}">
+                <li class="list-group-item">${record.mainCategoryNumber} ${record.mainCategory}</li>
             </c:forEach>
         </ul>
     </div>

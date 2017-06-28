@@ -14,16 +14,16 @@ import java.util.stream.Collectors;
 /**
  * @author Mariusz Szymanski
  */
-public class ICDService {
+public class ICDBuilder {
 
-    private ICDClassification icdClassification = new ICDClassification();
+    private ICDClient icdClient = new ICDClient();
 
-    private List<Category> categories = icdClassification.getICDclassification();
+    private List<Record> records = icdClient.getICDRecords();
 
     public List<Section> getDistinctSections() {
 
-        List<Category> distinctElements = categories.stream()
-                .filter(distinctByKey(Category::getChapter))
+        List<Record> distinctElements = records.stream()
+                .filter(distinctByKey(Record::getChapter))
                 .collect(Collectors.toList());
 
         List<Section> sections = new ArrayList<>();
@@ -38,9 +38,9 @@ public class ICDService {
 
     public List<Subsection> getDistinctSubsections(String section) {
 
-        List<Category> distinctElements = categories.stream()
+        List<Record> distinctElements = records.stream()
                 .filter(e -> Objects.equals(e.getChapterNumber(), section))
-                .filter(distinctByKey(Category::getBlock))
+                .filter(distinctByKey(Record::getBlock))
                 .collect(Collectors.toList());
 
         List<Subsection> subsections = new ArrayList<>();
@@ -53,27 +53,28 @@ public class ICDService {
         return subsections;
     }
 
-    public List<MainCategory> getDistinctMainCategories(String subsection) {
+    public List<MainCategory> getDistinctMainCategories(String subsectionNumber) {
 
-        List<Category> distinctElements = categories.stream()
-                .filter(e -> Objects.equals(e.getBlockNumber(), subsection))
-                .filter(distinctByKey(Category::getMainCategory))
+        List<Record> distinctElements = records.stream()
+                .filter(e -> Objects.equals(e.getBlockNumber(), subsectionNumber))
+                .filter(distinctByKey(Record::getMainCategory))
                 .collect(Collectors.toList());
 
         List<MainCategory> mainCategories = new ArrayList<>();
 
         distinctElements.forEach((record) -> mainCategories.add(new MainCategory(
                 record.getMainCategoryNumber(),
-                record.getMainCategory())));
+                record.getMainCategory(),
+                this.getDistinctDetailedCategories(record.getMainCategoryNumber()))));
 
         return mainCategories;
     }
 
-    public List<DetailedCategory> getDistinctDetailedCategories(String mainCategory) {
+    public List<DetailedCategory> getDistinctDetailedCategories(String mainCategoryNumber) {
 
-        List<Category> distinctElements = categories.stream()
-                .filter(e -> Objects.equals(e.getMainCategoryNumber(), mainCategory))
-                .filter(distinctByKey(Category::getDetailedCategory))
+        List<Record> distinctElements = records.stream()
+                .filter(e -> Objects.equals(e.getMainCategoryNumber(), mainCategoryNumber))
+                .filter(distinctByKey(Record::getDetailedCategory))
                 .collect(Collectors.toList());
 
         List<DetailedCategory> detailedCategories = new ArrayList<>();
@@ -84,7 +85,6 @@ public class ICDService {
 
         return detailedCategories;
     }
-
 
     private static <T> Predicate<T> distinctByKey(Function<? super T, Object> keyExtractor) {
         Map<Object, Boolean> map = new ConcurrentHashMap<>();

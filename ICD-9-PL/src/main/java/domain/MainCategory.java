@@ -11,32 +11,21 @@ public class MainCategory {
     private String title;
     private List<DetailedCategory> detailedCategories;
 
-    public MainCategory(String code, String title) {
+    public MainCategory(String code, String title, List<DetailedCategory> detailedCategories) {
         this.code = code;
         this.title = title;
+        this.detailedCategories = detailedCategories;
     }
 
     public String getCode() {
         return code;
     }
 
-    public void setCode(String code) {
-        this.code = code;
-    }
-
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public List<DetailedCategory> getDetailedCategories() {
         return detailedCategories;
-    }
-
-    public void setDetailedCategories(List<DetailedCategory> detailedCategories) {
-        this.detailedCategories = detailedCategories;
     }
 }
