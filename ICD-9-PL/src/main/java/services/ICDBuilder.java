@@ -2,6 +2,7 @@ package services;
 
 import domain.*;
 
+import javax.enterprise.inject.Default;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,7 @@ import java.util.stream.Collectors;
 /**
  * @author Mariusz Szymanski
  */
+@Default
 public class ICDBuilder {
 
     private List<Record> records = new ICDClient().getICDRecords();
