@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -13,6 +14,7 @@
 </head>
 <body>
 <div class="container">
+
     <div class="panel-group">
         <div class="panel panel-default">
             <div class="panel-heading"><h3>ICD-9 Classification
@@ -20,67 +22,13 @@
             </h3></div>
         </div>
     </div>
+
     <div class="panel-group" id="accordion">
         <c:forEach var="section" items="${classification.sections}">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#section_${section.code}">
-                            <div class="row">
-                                <div class="col-xs-1"><strong>${section.code}</strong></div>
-                                <div class="col-xs-11">${section.title}</div>
-                            </div>
-                        </a>
-                    </h4>
-                </div>
-                <div id="section_${section.code}" class="panel-collapse collapse">
-                    <div class="panel-body" id="accordion2">
-                        <ul class="list-group">
-                            <c:forEach var="subsection" items="${section.subsections}">
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h4 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordion2"
-                                               href="#subsection_${subsection.hashCode()}">
-                                                <div class="row">
-                                                    <div class="col-xs-1"><strong>${subsection.code}</strong></div>
-                                                    <div class="col-xs-11">${subsection.title}</div>
-                                                </div>
-                                            </a>
-                                        </h4>
-                                    </div>
-                                    <div id="subsection_${subsection.hashCode()}" class="panel-collapse collapse">
-                                        <div class="panel-body">
-                                            <ul class="list-group">
-                                                <c:forEach var="mainCategory" items="${subsection.mainCategories}">
-                                                    <li class="list-group-item">
-                                                        <div class="row">
-                                                            <div class="col-xs-1"><strong>${mainCategory.code}</strong>
-                                                            </div>
-                                                            <div class="col-xs-11">${mainCategory.title}</div>
-                                                        </div>
-                                                        <c:forEach var="detailedCategory"
-                                                                   items="${mainCategory.detailedCategories}">
-                                                            <div class="row">
-                                                                <div class="col-xs-1 col-xs-less-1">
-                                                                    <strong>${detailedCategory.code}</strong>
-                                                                </div>
-                                                                <div class="col-xs-10">${detailedCategory.description}</div>
-                                                            </div>
-                                                        </c:forEach>
-                                                    </li>
-                                                </c:forEach>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </c:forEach>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+            <tags:sectionView section="${section}"/>
         </c:forEach>
     </div>
+
 </div>
 </body>
 </html>
