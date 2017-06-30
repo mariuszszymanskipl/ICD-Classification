@@ -1,6 +1,6 @@
 package services;
 
-import domain.Category;
+import domain.Record;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,13 +12,13 @@ import static org.junit.Assert.assertTrue;
 /**
  * @author Mariusz Szymanski
  */
-public class ICDClassificationTest {
+public class ICDClientTest {
 
-    private ICDClassification icdClassification;
+    private ICDClient icdClient;
 
     @Before
     public void setUp() {
-        icdClassification = new ICDClassification();
+        icdClient = new ICDClient();
     }
 
     @Test
@@ -27,16 +27,16 @@ public class ICDClassificationTest {
         String filePath = "icd-9plw.5.33.xls";
         File file = new File(filePath);
 //        When
-        icdClassification.copyRemoteXlsFile();
+        icdClient.copyRemoteXlsFile();
 //        Then
         assertTrue(file.exists());
     }
 
     @Test
-    public void getICDClassificationReturnNotNullList() throws Exception {
+    public void getICDRecordReturnNotNullList() throws Exception {
 //        Given & When
-        List<Category> classification = icdClassification.getICDclassification();
+        List<Record> records = icdClient.getICDRecords();
 //        Then
-        assertTrue(classification.size() != 0);
+        assertTrue(records.size() != 0);
     }
 }
