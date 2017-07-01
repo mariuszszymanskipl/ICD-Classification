@@ -1,5 +1,8 @@
 package domain;
 
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
 import java.util.List;
 
 /**
@@ -27,5 +30,12 @@ public class Section {
 
     public List<Subsection> getSubsections() {
         return subsections;
+    }
+
+    public JsonObject toJsonObject() {
+        JsonObjectBuilder builder = Json.createObjectBuilder();
+        builder.add("code", this.getCode());
+        builder.add("title", this.getTitle());
+        return builder.build();
     }
 }
