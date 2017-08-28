@@ -24,14 +24,15 @@ public class ICDClient {
 
     private List<Record> records;
 
+    private static final String XLS_FILE_PATH = "icd-9plw.5.34.xls";
+
     private static final String REMOTE_ICD9_XLS
             = "https://danepubliczne.gov.pl/dataset"
             + "/a5f6b1ae-211a-4481-885e-ba9ff54c5ad4"
-            + "/resource/a3647fe8-8e50-4836-b816-ec6861fac35f"
-            + "/download/icd-9plw.5.33.xls";
+            + "/resource/510d94fe-0f17-41e9-9e5e-568035936e7f"
+            + "/download/" + XLS_FILE_PATH;
 
-    private static final File XLS_FILE
-            = new File("icd-9plw.5.33.xls");
+    private static final File XLS_FILE = new File(XLS_FILE_PATH);
 
     ICDClient() {
         records = new ArrayList<>();
@@ -46,7 +47,7 @@ public class ICDClient {
     }
 
     void copyRemoteXlsFile() {
-        try(InputStream inputStream = new URL(REMOTE_ICD9_XLS).openStream()) {
+        try (InputStream inputStream = new URL(REMOTE_ICD9_XLS).openStream()) {
             Files.copy(inputStream, XLS_FILE.toPath(), StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             e.printStackTrace();
@@ -54,7 +55,7 @@ public class ICDClient {
     }
 
     private void readXlsFile() {
-        try(InputStream inputStream = new FileInputStream(XLS_FILE)) {
+        try (InputStream inputStream = new FileInputStream(XLS_FILE)) {
             HSSFWorkbook wb = new HSSFWorkbook(inputStream);
             HSSFSheet sheet = wb.getSheetAt(0);
             HSSFRow row;

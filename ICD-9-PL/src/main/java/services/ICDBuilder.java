@@ -3,7 +3,7 @@ package services;
 import domain.*;
 
 import javax.enterprise.inject.Default;
-import java.util.ArrayList;
+import javax.inject.Singleton;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
  * @author Mariusz Szymanski
  */
 @Default
+@Singleton
 public class ICDBuilder {
 
     private List<Record> records = new ICDClient().getICDRecords();
@@ -26,68 +27,50 @@ public class ICDBuilder {
 
     private List<Section> getDistinctSections() {
 
-        List<Record> distinctElements = records.stream()
+        return records.stream()
                 .filter(distinctByKey(Record::getSection))
+                .collect(Collectors.toList())
+                .stream().map(record -> new Section(
+                        record.getSectionNumber(),
+                        record.getSection(),
+                        this.getDistinctSubsections(record.getSectionNumber())))
                 .collect(Collectors.toList());
-
-        List<Section> sections = new ArrayList<>();
-
-        distinctElements.forEach((record) -> sections.add(new Section(
-                record.getSectionNumber(),
-                record.getSection(),
-                this.getDistinctSubsections(record.getSectionNumber()))));
-
-        return sections;
     }
 
     private List<Subsection> getDistinctSubsections(String section) {
 
-        List<Record> distinctElements = records.stream()
+        return records.stream()
                 .filter(e -> Objects.equals(e.getSectionNumber(), section))
                 .filter(distinctByKey(Record::getSubsection))
+                .collect(Collectors.toList())
+                .stream().map(record -> new Subsection(
+                        record.getSubsectionNumber(),
+                        record.getSubsection(),
+                        this.getDistinctMainCategories(record.getSubsectionNumber())))
                 .collect(Collectors.toList());
-
-        List<Subsection> subsections = new ArrayList<>();
-
-        distinctElements.forEach((record) -> subsections.add(new Subsection(
-                record.getSubsectionNumber(),
-                record.getSubsection(),
-                this.getDistinctMainCategories(record.getSubsectionNumber()))));
-
-        return subsections;
     }
 
     private List<MainCategory> getDistinctMainCategories(String subsectionNumber) {
 
-        List<Record> distinctElements = records.stream()
+        return records.stream()
                 .filter(e -> Objects.equals(e.getSubsectionNumber(), subsectionNumber))
                 .filter(distinctByKey(Record::getMainCategory))
+                .collect(Collectors.toList())
+                .stream().map(record -> new MainCategory(
+                        record.getMainCategoryNumber(),
+                        record.getMainCategory(),
+                        this.getDistinctDetailedCategories(record.getMainCategoryNumber())))
                 .collect(Collectors.toList());
-
-        List<MainCategory> mainCategories = new ArrayList<>();
-
-        distinctElements.forEach((record) -> mainCategories.add(new MainCategory(
-                record.getMainCategoryNumber(),
-                record.getMainCategory(),
-                this.getDistinctDetailedCategories(record.getMainCategoryNumber()))));
-
-        return mainCategories;
     }
 
     private List<DetailedCategory> getDistinctDetailedCategories(String mainCategoryNumber) {
 
-        List<Record> distinctElements = records.stream()
+        return records.stream()
                 .filter(e -> Objects.equals(e.getMainCategoryNumber(), mainCategoryNumber))
-                .filter(distinctByKey(Record::getDetailedCategory))
+                .collect(Collectors.groupingBy(Record::getMainCategoryNumber, Collectors.toList()))
+                .get(mainCategoryNumber)
+                .stream().map(r -> new DetailedCategory(r.getDetailedCategoryNumber(), r.getDetailedCategory()))
                 .collect(Collectors.toList());
-
-        List<DetailedCategory> detailedCategories = new ArrayList<>();
-
-        distinctElements.forEach((record) -> detailedCategories.add(new DetailedCategory(
-                record.getDetailedCategoryNumber(),
-                record.getDetailedCategory())));
-
-        return detailedCategories;
     }
 
     private static <T> Predicate<T> distinctByKey(Function<? super T, Object> keyExtractor) {
