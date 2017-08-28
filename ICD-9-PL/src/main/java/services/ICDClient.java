@@ -30,8 +30,8 @@ public class ICDClient {
             + "/resource/a3647fe8-8e50-4836-b816-ec6861fac35f"
             + "/download/icd-9plw.5.33.xls";
 
-    private static final File XLS_FILE
-            = new File("icd-9plw.5.33.xls");
+    private static final String XLS_FILE_PATH = "icd-9plw.5.33.xls";
+    private static final File XLS_FILE = new File(XLS_FILE_PATH);
 
     ICDClient() {
         records = new ArrayList<>();
@@ -46,7 +46,7 @@ public class ICDClient {
     }
 
     void copyRemoteXlsFile() {
-        try(InputStream inputStream = new URL(REMOTE_ICD9_XLS).openStream()) {
+        try (InputStream inputStream = new URL(REMOTE_ICD9_XLS).openStream()) {
             Files.copy(inputStream, XLS_FILE.toPath(), StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             e.printStackTrace();
@@ -54,7 +54,7 @@ public class ICDClient {
     }
 
     private void readXlsFile() {
-        try(InputStream inputStream = new FileInputStream(XLS_FILE)) {
+        try (InputStream inputStream = new FileInputStream(XLS_FILE)) {
             HSSFWorkbook wb = new HSSFWorkbook(inputStream);
             HSSFSheet sheet = wb.getSheetAt(0);
             HSSFRow row;

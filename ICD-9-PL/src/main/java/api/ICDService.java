@@ -25,6 +25,7 @@ public class ICDService {
     public Response getAllClassification() {
 
         Classification classification = icdBuilder.getAllClassification();
+
         return Response.status(Response.Status.OK).entity(classification).build();
     }
 }

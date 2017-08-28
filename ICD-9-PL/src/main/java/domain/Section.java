@@ -32,10 +32,4 @@ public class Section {
         return subsections;
     }
 
-    public JsonObject toJsonObject() {
-        JsonObjectBuilder builder = Json.createObjectBuilder();
-        builder.add("code", this.getCode());
-        builder.add("title", this.getTitle());
-        return builder.build();
-    }
 }
