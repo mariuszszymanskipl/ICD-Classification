@@ -13,15 +13,21 @@ import java.io.IOException;
 /**
  * @author Mariusz Szymanski
  */
-@WebServlet(name = "ICDServlet", urlPatterns = "/classification")
+@WebServlet(name = "ICDServlet", urlPatterns = "/classification", loadOnStartup = 1, asyncSupported = true)
 public class ICDServlet extends HttpServlet {
 
     @Inject
-    ICDBuilder icdBuilder;
+    private ICDBuilder icdBuilder;
+    private Classification classification;
 
+    @Override
+    public void init() throws ServletException {
+        classification = icdBuilder.getAllClassification();
+    }
+
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        Classification classification = icdBuilder.getAllClassification();
         request.setCharacterEncoding("UTF-8");
         request.setAttribute("classification", classification);
         request.getRequestDispatcher("icd-9.jsp").forward(request, response);
