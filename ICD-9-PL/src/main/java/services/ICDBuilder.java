@@ -19,10 +19,16 @@ import java.util.stream.Collectors;
 @Singleton
 public class ICDBuilder {
 
-    private List<Record> records = new ICDClient().getICDRecords();
+    private List<Record> records;
+    private Classification classification;
+
+    public ICDBuilder() {
+        this.records = new ICDClient().getICDRecords();
+        this.classification = new Classification(this.getDistinctSections());
+    }
 
     public Classification getAllClassification() {
-        return new Classification(this.getDistinctSections());
+        return classification;
     }
 
     private List<Section> getDistinctSections() {
