@@ -8,6 +8,11 @@
     <jsp:include page="partials/meta.jsp"/>
 </head>
 <body>
+
+<jsp:include page="partials/navbar.jsp"/>
+
+<a href="#" id="goToTopBtn" title="Go to top"><span class="glyphicon glyphicon-chevron-up"></span></a>
+
 <div class="container">
 
     <div class="row">
@@ -29,5 +34,8 @@
     </div>
 
 </div>
+
+<jsp:include page="partials/footer.jsp"/>
+
 </body>
 </html>
