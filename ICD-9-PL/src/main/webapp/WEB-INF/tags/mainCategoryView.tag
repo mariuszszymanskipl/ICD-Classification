@@ -2,14 +2,25 @@
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <%@ attribute name="mainCategory" type="domain.MainCategory" required="true" %>
 
-<li class="list-group-item">
-    <div class="row">
-        <div class="col-xs-1"><strong>${mainCategory.code}</strong>
-        </div>
-        <div class="col-xs-11">${mainCategory.title}</div>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion3"
+               href="#subsection_${mainCategory.hashCode()}">
+                <div class="row">
+                    <div class="col-xs-1"><strong>${mainCategory.code}</strong></div>
+                    <div class="col-xs-11">${mainCategory.title}</div>
+                </div>
+            </a>
+        </h4>
     </div>
-    <c:forEach var="detailedCategory"
-               items="${mainCategory.detailedCategories}">
-        <tags:detailedCategoryView detailedCategory="${detailedCategory}"/>
-    </c:forEach>
-</li>
+    <div id="subsection_${mainCategory.hashCode()}" class="panel-collapse collapse">
+        <div class="panel-body">
+            <ul class="list-group">
+                <c:forEach var="detailedCategory" items="${mainCategory.detailedCategories}">
+                    <tags:detailedCategoryView detailedCategory="${detailedCategory}"/>
+                </c:forEach>
+            </ul>
+        </div>
+    </div>
+</div>

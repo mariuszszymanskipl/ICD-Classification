@@ -1,34 +1,41 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>ICD-9-PL Classification</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <jsp:include page="partials/meta.jsp"/>
 </head>
 <body>
+
+<jsp:include page="partials/navbar.jsp"/>
+
+<a href="#" id="goToTopBtn" title="Go to top"><span class="glyphicon glyphicon-chevron-up"></span></a>
+
 <div class="container">
 
-    <div class="panel-group">
-        <div class="panel panel-default">
-            <div class="panel-heading"><h3>ICD-9 Classification
-                <%--<span class="badge">${classification.sections.subsections.mainCategories.detailedCategories.size()}</span>--%>
-            </h3></div>
+    <div class="row">
+        <div class="col-sm-offset-2 col-sm-8">
+            <div class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><h3>ICD-9 Classification
+                    </h3></div>
+                </div>
+            </div>
+
+            <div class="panel-group" id="accordion">
+                <jsp:useBean id="classification" scope="request" type="domain.Classification"/>
+                <c:forEach var="section" items="${classification.sections}">
+                    <tags:sectionView section="${section}"/>
+                </c:forEach>
+            </div>
         </div>
     </div>
 
-    <div class="panel-group" id="accordion">
-        <c:forEach var="section" items="${classification.sections}">
-            <tags:sectionView section="${section}"/>
-        </c:forEach>
-    </div>
-
 </div>
+
+<jsp:include page="partials/footer.jsp"/>
+
 </body>
 </html>
